@@ -2,9 +2,13 @@ package net.app.mymediaplayer.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import net.app.mymediaplayer.MyMediaPlayerApp
 import net.app.mymediaplayer.databinding.ActivityMainBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
+
+    private val viewModel: MainViewModel by viewModel()
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding

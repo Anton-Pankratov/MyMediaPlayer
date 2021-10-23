@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
+abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
+
+    abstract val viewModel: VM
 
     private var _binding: ViewBinding? = null
     abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> VB
@@ -15,8 +17,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     @Suppress("UNCHECKED_CAST")
     protected val binding: VB
         get() = _binding as VB
-
-    abstract val viewModel: VM
 
     override fun onCreateView(
         inflater: LayoutInflater,

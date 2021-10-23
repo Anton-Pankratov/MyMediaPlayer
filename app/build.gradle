@@ -47,6 +47,10 @@ ext {
     materialDesign = '1.4.0'
     glide = '4.12.0'
 
+    /** Media */
+    player = '2.15.1'
+    session = '1.4.3'
+
     /** Coroutines */
     coroutines = '1.4.2'
 
@@ -55,20 +59,13 @@ ext {
     lifecycleExt = '2.2.0'
 
     /** Dependency Injection*/
-    dagger = '2.39.1'
-
-    /** Networking */
-    retrofit = '2.9.0'
+    koin = '3.1.2'
 
     /** OkHttp Client */
     okHttp = '4.9.1'
 
     /** Parser */
     moshi = '1.12.0'
-
-    /** Linters */
-    ktlint = '0.42.0'
-    detekt = '1.18.1'
 
     /** Testing */
     junit = '4.13.2'
@@ -89,6 +86,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleExt"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
+    //noinspection LifecycleAnnotationProcessorWithJava8
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle"
 
     /** Coroutines */
@@ -98,24 +96,22 @@ dependencies {
     /** Design */
     implementation "com.google.android.material:material:$materialDesign"
     implementation "com.github.bumptech.glide:glide:$glide"
+    kapt "com.github.bumptech.glide:compiler:$glide"
+
+    /** Media */
+    implementation "com.google.android.exoplayer:exoplayer-core:$player"
+    implementation "com.google.android.exoplayer:extension-okhttp$player"
+    implementation "androidx.media:media:$session"
 
     /** Dependency Injection */
-    implementation "com.google.dagger:dagger:$dagger"
-    kapt "com.google.dagger:dagger-compiler$dagger"
-
-    /** Networking */
-    implementation "com.squareup.retrofit2:retrofit:$retrofit"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofit"
+    implementation "io.insert-koin:koin-android:$koin"
 
     /** OkHttp Client */
     implementation "com.squareup.okhttp3:okhttp:$okHttp"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okHttp"
 
     /** Parser */
     implementation "com.squareup.moshi:moshi-kotlin:$moshi"
-    implementation "com.squareup.moshi:moshi-adapters:$moshi"
-
-    implementation "com.treebo:internetavailabilitychecker:1.0.4"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi"
 
     /** Testing */
     testImplementation "junit:junit:$junit"
