@@ -1,4 +1,4 @@
-package net.app.mymediaplayer.player.service
+package net.app.mymediaplayer.media.service
 
 import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat

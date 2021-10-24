@@ -1,4 +1,4 @@
-package net.app.mymediaplayer.player
+package net.app.mymediaplayer.media.player
 
 import android.app.PendingIntent
 import android.content.Context
@@ -11,33 +11,10 @@ import com.google.android.exoplayer2.C.USAGE_MEDIA
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.audio.AudioAttributes
-import net.app.mymediaplayer.ui.main.MainActivity
-import net.app.mymediaplayer.utils.TAG_MEDIA_PLAYER
 
 class MediaPlayerImpl(private val applicationContext: Context) : MediaPlayer {
 
     val mediaPlayer by lazy { buildMediaPlayer() }
-    val mediaSession by lazy { buildMediaSession() }
-
-    private val activityIntent by lazy {
-        PendingIntent.getActivity(
-            applicationContext, 0,
-            Intent(
-                applicationContext, MainActivity::class.java
-            ), 0
-        )
-    }
-
-    private val mediaBtnIntent by lazy {
-        PendingIntent.getBroadcast(
-            applicationContext, 0,
-            Intent(
-                Intent.ACTION_MEDIA_BUTTON,
-                null, applicationContext,
-                MediaButtonReceiver::class.java
-            ), 0
-        )
-    }
 
     override fun buildMediaPlayer(): ExoPlayer {
         return SimpleExoPlayer.Builder(applicationContext)
@@ -49,15 +26,6 @@ class MediaPlayerImpl(private val applicationContext: Context) : MediaPlayer {
             )
             .setHandleAudioBecomingNoisy(true)
             .build()
-    }
-
-    override fun buildMediaSession(): MediaSessionCompat {
-        return MediaSessionCompat(applicationContext, TAG_MEDIA_PLAYER).apply {
-            setMediaButtonReceiver(null)
-            setCallback(buildSessionCallback())
-            setSessionActivity(activityIntent)
-            setMediaButtonReceiver(mediaBtnIntent)
-        }
     }
 
     override fun buildSessionCallback(): MediaSessionCompat.Callback {
