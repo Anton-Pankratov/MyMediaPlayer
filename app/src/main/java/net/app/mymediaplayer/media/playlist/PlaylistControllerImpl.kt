@@ -17,23 +17,33 @@ class PlaylistControllerImpl(private val context: Context) : PlaylistController 
     override val playlist: List<SoundTrack>
         get() = requireNotNull(_playlist)
 
-    val images = HashMap<String, Bitmap>(playlist.size)
+    override val images = HashMap<String, Bitmap>(playlist.size)
 
     val countTracks = playlist.size
     val maxTrackIndex = playlist.size - 1
 
-    val currentTrackIndex = 0
+    var currentTrackIndex = 0
 
     var currentTrack = playlist[0]
         get() = playlist[currentTrackIndex]
         private set
 
     override fun nextTrack(): SoundTrack {
-        TODO("Not yet implemented")
+        if (currentTrackIndex == maxTrackIndex) {
+            currentTrackIndex = 0
+        } else {
+            currentTrackIndex++
+        }
+        return currentTrack
     }
 
     override fun previousTrack(): SoundTrack {
-        TODO("Not yet implemented")
+        if (currentTrackIndex == 0) {
+            currentTrackIndex = maxTrackIndex
+        } else {
+            currentTrackIndex--
+        }
+        return currentTrack
     }
 
     override fun parseTracks() {

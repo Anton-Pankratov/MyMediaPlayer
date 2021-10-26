@@ -1,11 +1,8 @@
 package net.app.mymediaplayer.media.player
 
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
-import androidx.media.session.MediaButtonReceiver
 import com.google.android.exoplayer2.C.CONTENT_TYPE_MUSIC
 import com.google.android.exoplayer2.C.USAGE_MEDIA
 import com.google.android.exoplayer2.ExoPlayer

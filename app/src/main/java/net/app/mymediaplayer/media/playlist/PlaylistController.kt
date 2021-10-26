@@ -7,6 +7,8 @@ interface PlaylistController {
 
     val playlist: List<SoundTrack>
 
+    val images: HashMap<String, Bitmap>
+
     fun nextTrack(): SoundTrack
 
     fun previousTrack(): SoundTrack
