@@ -1,4 +1,4 @@
-package net.app.mymediaplayer.media.notification
+package net.app.mymediaplayer.media.components.notification
 
 import android.app.Notification
 import android.content.Context

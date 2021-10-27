@@ -8,10 +8,32 @@ import com.google.android.exoplayer2.C.USAGE_MEDIA
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.audio.AudioAttributes
+import net.app.mymediaplayer.media.components.callback.MediaSessionCallback
+import net.app.mymediaplayer.media.components.callback.MediaSessionCallbackImpl
+import net.app.mymediaplayer.media.components.notification.MediaPlayerNotification
+import net.app.mymediaplayer.media.components.session.MediaSession
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.core.parameter.parametersOf
 
-class MediaPlayerImpl(private val applicationContext: Context) : MediaPlayer {
+class MediaPlayerImpl(private val applicationContext: Context) : MediaPlayer, KoinComponent {
 
-    val mediaPlayer by lazy { buildMediaPlayer() }
+    override val mediaPlayer by lazy { buildMediaPlayer() }
+
+    override val mediaSession: MediaSession by inject()
+
+    override val mediaSessionCallback: MediaSessionCallback by inject {
+        parametersOf(mediaPlayer)
+    }
+    override val mediaSessionCompat: MediaSessionCompat by lazy {
+        mediaSession.build(
+            mediaSessionCallback as MediaSessionCallbackImpl
+        )
+    }
+
+    override val mediaPlayerNotification: MediaPlayerNotification by inject {
+        parametersOf()
+    }
 
     override fun buildMediaPlayer(): ExoPlayer {
         return SimpleExoPlayer.Builder(applicationContext)
@@ -23,26 +45,6 @@ class MediaPlayerImpl(private val applicationContext: Context) : MediaPlayer {
             )
             .setHandleAudioBecomingNoisy(true)
             .build()
-    }
-
-    override fun buildSessionCallback(): MediaSessionCompat.Callback {
-        return object : MediaSessionCompat.Callback() {
-            override fun onPlay() {
-                mediaPlayer.playWhenReady = true
-            }
-
-            override fun onPause() {
-                mediaPlayer.playWhenReady = false
-            }
-
-            override fun onRewind() {
-                super.onRewind()
-            }
-
-            override fun onFastForward() {
-                super.onFastForward()
-            }
-        }
     }
 
     override fun buildPlaybackStates(): PlaybackStateCompat.Builder {

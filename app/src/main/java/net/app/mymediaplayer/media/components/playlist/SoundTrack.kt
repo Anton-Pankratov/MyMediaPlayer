@@ -1,4 +1,4 @@
-package net.app.mymediaplayer.media.playlist
+package net.app.mymediaplayer.media.components.playlist
 
 import com.squareup.moshi.JsonClass
 

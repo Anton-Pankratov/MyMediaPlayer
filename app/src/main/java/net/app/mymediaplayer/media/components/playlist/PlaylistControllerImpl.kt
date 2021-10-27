@@ -1,4 +1,4 @@
-package net.app.mymediaplayer.media.playlist
+package net.app.mymediaplayer.media.components.playlist
 
 import android.content.Context
 import android.graphics.Bitmap

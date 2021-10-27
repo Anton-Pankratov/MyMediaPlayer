@@ -2,16 +2,18 @@ package net.app.mymediaplayer.di
 
 import android.support.v4.media.session.MediaSessionCompat
 import com.google.android.exoplayer2.SimpleExoPlayer
-import net.app.mymediaplayer.media.callback.MediaSessionCallback
-import net.app.mymediaplayer.media.callback.MediaSessionCallbackImpl
-import net.app.mymediaplayer.media.notification.MediaPlayerNotification
-import net.app.mymediaplayer.media.notification.MediaPlayerNotificationImpl
+import net.app.mymediaplayer.media.components.callback.MediaSessionCallback
+import net.app.mymediaplayer.media.components.callback.MediaSessionCallbackImpl
+import net.app.mymediaplayer.media.components.notification.MediaPlayerNotification
+import net.app.mymediaplayer.media.components.notification.MediaPlayerNotificationImpl
 import net.app.mymediaplayer.media.player.MediaPlayer
 import net.app.mymediaplayer.media.player.MediaPlayerImpl
-import net.app.mymediaplayer.media.playlist.PlaylistController
-import net.app.mymediaplayer.media.playlist.PlaylistControllerImpl
-import net.app.mymediaplayer.media.session.MediaSession
-import net.app.mymediaplayer.media.session.MediaSessionImpl
+import net.app.mymediaplayer.media.components.playlist.PlaylistController
+import net.app.mymediaplayer.media.components.playlist.PlaylistControllerImpl
+import net.app.mymediaplayer.media.components.session.MediaSession
+import net.app.mymediaplayer.media.components.session.MediaSessionImpl
+import net.app.mymediaplayer.media.service.MediaBrowserService
+import net.app.mymediaplayer.media.service.MediaBrowserServiceImpl
 import net.app.mymediaplayer.repository.MediaPlayerRepository
 import net.app.mymediaplayer.repository.MediaPlayerRepositoryImpl
 import net.app.mymediaplayer.ui.main.MainViewModel
@@ -29,13 +31,14 @@ val appModule = module {
 
     single<PlaylistController> { PlaylistControllerImpl(androidContext()) }
 
-    single<MediaSessionCallback> { (player: SimpleExoPlayer, mediaSession: MediaSessionCompat) ->
-        MediaSessionCallbackImpl(androidContext(), player, get(), mediaSession)
+    single<MediaSessionCallback> { (player: SimpleExoPlayer) ->
+        MediaSessionCallbackImpl(androidContext(), player, get())
     }
-
     single<MediaPlayerNotification> { (session: MediaSessionCompat) ->
         MediaPlayerNotificationImpl(androidContext(), session)
     }
+
+    single<MediaBrowserService> { MediaBrowserServiceImpl(get()) }
 
     factory<MediaPlayerRepository> { MediaPlayerRepositoryImpl() }
 
