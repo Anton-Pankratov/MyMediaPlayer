@@ -10,9 +10,6 @@ import net.app.mymediaplayer.utils.TAG_MEDIA_PLAYER
 
 class MediaSessionImpl(private val context: Context): MediaSession {
 
-    private val _mediaSessionCompat: MediaSessionCompat? =null
-    override val mediaSessionCompat get() = requireNotNull(_mediaSessionCompat)
-
     override val activityIntent: PendingIntent by lazy {
         PendingIntent.getActivity(
             context, 0,

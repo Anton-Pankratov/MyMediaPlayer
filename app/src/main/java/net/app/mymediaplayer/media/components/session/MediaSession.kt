@@ -5,8 +5,6 @@ import android.support.v4.media.session.MediaSessionCompat
 
 interface MediaSession {
 
-    val mediaSessionCompat: MediaSessionCompat?
-
     val activityIntent: PendingIntent
 
     val mediaBtnIntent: PendingIntent

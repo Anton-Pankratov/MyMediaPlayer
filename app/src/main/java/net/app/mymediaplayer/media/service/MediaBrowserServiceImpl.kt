@@ -1,13 +1,24 @@
 package net.app.mymediaplayer.media.service
 
+import android.annotation.SuppressLint
+import android.media.AudioManager
 import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
+import androidx.media.AudioFocusRequestCompat
 import androidx.media.MediaBrowserServiceCompat
 import net.app.mymediaplayer.media.player.MediaPlayer
 
+@SuppressLint("WrongConstant")
 class MediaBrowserServiceImpl(
     private val mediaPlayer: MediaPlayer
-    ) : MediaBrowserServiceCompat(), MediaBrowserService {
+) : MediaBrowserServiceCompat(), MediaBrowserService {
+
+
+    override val audioFocusRequest: AudioFocusRequestCompat by lazy {
+        AudioFocusRequestCompat.Builder(AudioManager.AUDIOFOCUS_GAIN)
+
+            .build()
+    }
 
     override fun onCreate() {
         super.onCreate()

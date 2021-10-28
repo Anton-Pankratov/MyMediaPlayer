@@ -2,6 +2,8 @@ package net.app.mymediaplayer.di
 
 import android.support.v4.media.session.MediaSessionCompat
 import com.google.android.exoplayer2.SimpleExoPlayer
+import net.app.mymediaplayer.media.components.audioFocus.AudioFocus
+import net.app.mymediaplayer.media.components.audioFocus.AudioFocusImpl
 import net.app.mymediaplayer.media.components.callback.MediaSessionCallback
 import net.app.mymediaplayer.media.components.callback.MediaSessionCallbackImpl
 import net.app.mymediaplayer.media.components.notification.MediaPlayerNotification
@@ -34,9 +36,12 @@ val appModule = module {
     single<MediaSessionCallback> { (player: SimpleExoPlayer) ->
         MediaSessionCallbackImpl(androidContext(), player, get())
     }
+
     single<MediaPlayerNotification> { (session: MediaSessionCompat) ->
         MediaPlayerNotificationImpl(androidContext(), session)
     }
+
+    single<AudioFocus> { AudioFocusImpl(get()) }
 
     single<MediaBrowserService> { MediaBrowserServiceImpl(get()) }
 
